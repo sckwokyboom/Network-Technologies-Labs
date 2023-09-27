@@ -1,0 +1,26 @@
+version: '3'
+services:
+  server:
+    build:
+      context: ./Server-App
+      args:
+        - UPLOAD_PATH=/uploads
+        - SERVER_PORT=8080
+    container_name: server-container
+    hostname: server-host
+  client1:
+    build:
+      context: ./Client-App
+      args:
+        - SERVER_HOST=server-container
+        - SERVER_PORT=8080
+        - FILE_TO_UPLOAD=file_to_upload
+    hostname: client-host
+  client2:
+    build:
+      context: ./Client-App
+      args:
+        - SERVER_HOST=server-container
+        - SERVER_PORT
+        - FILE_TO_UPLOAD
+    hostname: client-host
