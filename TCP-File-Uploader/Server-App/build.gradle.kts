@@ -63,6 +63,7 @@ tasks {
 
 tasks {
     build {
+        dependsOn("dockerShadowJar")
         dependsOn(shadowJar)
     }
 }

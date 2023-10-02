@@ -1,7 +1,7 @@
 package utils
 
 object ByteConverter {
-    fun convert(bytes: Long): String {
+    fun convertToHumanReadable(bytes: Long): String {
         val gigabyte = 1024 * 1024 * 1024
         val megabyte = 1024 * 1024
         val kilobyte = 1024

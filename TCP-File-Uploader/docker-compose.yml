@@ -4,8 +4,8 @@ services:
     build:
       context: ./Server-App
       args:
-        - UPLOAD_PATH=/uploads
-        - SERVER_PORT=8080
+        - UPLOAD_DIR_PATH=/uploads
+        - SERVER_PORT
     container_name: server-container
     hostname: server-host
   client1:
@@ -13,8 +13,8 @@ services:
       context: ./Client-App
       args:
         - SERVER_HOST=server-container
-        - SERVER_PORT=8080
-        - FILE_TO_UPLOAD=file_to_upload
+        - SERVER_PORT
+        - FILE_TO_UPLOAD_PATH
     hostname: client-host
   client2:
     build:
@@ -22,5 +22,5 @@ services:
       args:
         - SERVER_HOST=server-container
         - SERVER_PORT
-        - FILE_TO_UPLOAD
+        - FILE_TO_UPLOAD_PATH
     hostname: client-host

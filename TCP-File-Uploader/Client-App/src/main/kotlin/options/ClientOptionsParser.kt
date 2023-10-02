@@ -3,7 +3,8 @@ package options
 import org.apache.commons.cli.*
 import kotlin.io.path.Path
 
-class ClientOptionsParser {
+object ClientOptionsParser {
+    @JvmStatic
     fun parse(args: Array<String>): ClientOptions {
         val cmd: CommandLine
         try {
@@ -13,7 +14,7 @@ class ClientOptionsParser {
         }
         val port = cmd.getOptionValue("port")
         if (port.toIntOrNull() == null || port.toInt() !in 0..65535) {
-            throw IllegalArgumentException("port must be integer value between 0 and 65535.")
+            throw IllegalArgumentException("Port must be integer value between 0 and 65535.")
         }
 
         return ClientOptions(
@@ -23,6 +24,7 @@ class ClientOptionsParser {
         )
     }
 
+    @JvmStatic
     private fun options(): Options {
         val options = Options()
 

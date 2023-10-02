@@ -3,7 +3,8 @@ package options
 import org.apache.commons.cli.*
 
 
-class ServerOptionsParser {
+object ServerOptionsParser {
+    @JvmStatic
     fun parse(args: Array<String>): ServerOptions {
         val cmd: CommandLine
         try {
@@ -13,14 +14,13 @@ class ServerOptionsParser {
         }
         val port = cmd.getOptionValue("port")
         if (port.toIntOrNull() == null || port.toInt() !in 0..65535) {
-            println(port)
-            throw IllegalArgumentException("Port must be integer value between 0 and 65535")
+            throw IllegalArgumentException("Port must be integer value between 0 and 65535, but was \"$port\".")
         }
 
-        return if (cmd.hasOption("destination")) {
+        return if (cmd.hasOption("upload-dir")) {
             ServerOptions(
                 cmd.getOptionValue("port").toInt(),
-                cmd.getOptionValue("destination")
+                cmd.getOptionValue("upload-dir")
             )
         } else
             ServerOptions(
@@ -28,24 +28,22 @@ class ServerOptionsParser {
             )
     }
 
-    companion object FileUploaderServerOptions {
 
-        @JvmStatic
-        private fun options(): Options {
-            val options = Options()
+    @JvmStatic
+    private fun options(): Options {
+        val options = Options()
 
-            options.addOption(
-                Option(
-                    "p", "port", true, "server port"
-                ).apply { isRequired = true })
+        options.addOption(
+            Option(
+                "p", "port", true, "server port"
+            ).apply { isRequired = true })
 
-            options.addOption(
-                Option(
-                    "d", "destination", true, "upload directory"
-                )
+        options.addOption(
+            Option(
+                "ud", "upload-dir", true, "upload directory"
             )
+        )
 
-            return options
-        }
+        return options
     }
 }
